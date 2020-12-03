@@ -35,9 +35,6 @@ function optionChanged() {
                 metadata.push(data.metadata[i]);
                 break;
             }
-            else {
-                console.log("whoops!");
-            }
         }
         // call our build'Chart' functions with our filtered data
         buildHbar(sample_values, otu_ids, otu_labels);
@@ -75,6 +72,7 @@ function buildHbar(sample_values, otu_ids, otu_labels) {
 }
 
 function buildBubble(otu_ids, sample_values, otu_labels) {
+    // straightforward basic bubble chart using the json data
     var dataB = [{
         x: otu_ids[0],
         y: sample_values[0],
@@ -109,46 +107,82 @@ function buildPanel(metadata) {
     
 }
 
-console.log("bigfoot")
-
 function buildGauge(metadata) {
     var infoG = metadata[0]['wfreq']
     console.log(infoG);
+    // tried the gauge chart, didn't work; google searches reveal many use a half pie/donut..
+    // with svg coordinates to draw a line indicator
     var dataG = [{
         type: "pie",
         showlegend: false,
         hole: 0.45,
         rotation: 90,
-        values: [180 / 9, 180 / 9, 180 / 9, 180 / 9, 180 / 9, 180 / 9, 180 / 9, 180 / 9, 180 / 9, 180],
+        values: [100 / 9, 100 / 9, 100 / 9, 100 / 9, 100 / 9, 100 / 9, 100 / 9, 100 / 9, 100 / 9, 100],
         text: ["0-1", "1-2", "2-3", "3-4", "4-5", "5-6", "6-7", "7-8", "8-9", ""],
         direction: "clockwise",
         textinfo: "text",
         textposition: "indside",
         marker: {
-            colors: ["red", "blue", "green", "yellow", "lavender", "pink", "orange", "purple", "brown", "white"]
+            colors: ["rgba(253, 231, 37, 0.6)", "rgba(180, 222, 44, 0.6)", "rgba(109, 205, 89, 0.6)", "rgba(53, 183, 121, 0.6)", "rgba(31, 158, 137, 0.6)", "rgba(38, 130, 142, 0.6)", "rgba(49, 104, 142, 0.6)", "rgba(62, 74, 137, 0.6)", "rgba(72, 40, 120, 0.6)", "white"]
         },
         labels: ["0-1", "1-2", "2-3", "3-4", "4-5", "5-6", "6-7", "7-8", "8-9", ""],
         hoverinfo: "label"
     }];
-
-    var degrees = 115, radius = .6;
-    var radians = degrees * Math.PI / 180;
-    var x = -1 * radius * Math.cos(radians);
-    var y = radius * Math.sin(radians);
-    
+    // due to my lack of execution using geometry, I used time, trial and error..
+    // and this long if statement to give the correct (x, y) coordinates for the line end point
+    if (infoG == 1) {
+        var x = 0.25;
+        var y = 0.6;
+    }
+    else if (infoG == 2) {
+        var x = 0.28;
+        var y = 0.69;
+    }
+    else if (infoG == 3) {
+        var x = 0.36;
+        var y = 0.76;
+    }
+    else if (infoG == 4) {
+        var x = 0.46;
+        var y = 0.8;
+    }
+    else if (infoG == 5) {
+        var x = 0.54;
+        var y = 0.8;
+    }
+    else if (infoG == 6) {
+        var x = 0.64;
+        var y = 0.76;
+    }
+    else if (infoG == 7) {
+        var x = 0.72;
+        var y = 0.69;
+    }
+    else if (infoG == 8) {
+        var x = 0.76;
+        var y = 0.6;
+    }
+    else if (infoG == 9) {
+        var x = 0.79;
+        var y = 0.51;
+    }
+    else {
+        var x = 0.21;
+        var y = 0.51;
+    }
     var layoutG = {
         shapes:[{
             type: 'line',
             x0: 0.5,
             y0: 0.5,
-            x1: 0.3,
-            y1: 0.9,
+            x1: x,
+            y1: y,
             line: {
               color: 'red',
               width: 7
             }
           }],
-        title: 'Belly Button Washing Frequency',
+        title: 'Belly Button Washing Frequency\nScrubs per Week',
         xaxis: {visible: false, range: [-1, 1]},
         yaxis: {visible: false, range: [-1, 1]}
       };
