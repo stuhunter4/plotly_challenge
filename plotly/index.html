@@ -7,10 +7,21 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Bellybutton Biodiversity</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <style>
+    .jumbotron {
+      background-color: black;
+      color: white;
+    }
+    .paper {
+      background-color: #F5F6F9;
+    }
+    .paddingL {
+      padding-left: 20px;
+    }
+  </style>
 </head>
 
 <body>
-
   <div class="container">
     <div class="row">
       <div class="col-md-12 jumbotron text-center">
@@ -20,7 +31,7 @@
     </div>
     <div class="row">
       <div class="col-md-2">
-        <div class="well">
+        <div class="well paper">
           <h5>Test Subject ID No.:</h5>
           <select id="selDataset" onchange="optionChanged(this.value)"></select>
         </div>
@@ -32,9 +43,12 @@
         </div>
       </div>
       <div class="col-md-5">
-        <div id="bar"></div>
+        <div class="card paper paddingL">
+          <div id="bar"></div>
+        </div>
       </div>
-      <div class="col-md-5">
+      <div class="col-md-5 text-center">
+        <h3>Belly Button Washing Frequency</h3>
         <div id="booth"></div>
       </div>
     </div>
@@ -44,12 +58,9 @@
       </div>
     </div>
   </div>
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <script src="./static/js/app.js"></script>
   <script src="samples.json"></script>
-  
 </body>
-
 </html>

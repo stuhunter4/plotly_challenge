@@ -66,9 +66,28 @@ function buildHbar(sample_values, otu_ids, otu_labels) {
         x: slice_sample,
         y: new_ids,
         text: slice_labels,
-        orientation: 'h'
+        orientation: 'h',
+        marker: {
+            color: 'rgba(55,128,191,1)'
+        }
     }];
-    Plotly.newPlot('bar', data);
+    var layout = {
+        title: 'Top 10 OTUs',
+        
+        paper_bgcolor: 'rgb(245,246,249)',
+        plot_bgcolor: 'rgb(245,246,249)',
+        xaxis: {
+            title: "SAMPLE VALUE",
+            size: 14,
+            color: 'grey'
+        },
+        yaxis: {
+            title: "OTU ID",
+            size: 14,
+            color: 'grey'
+        }
+    }
+    Plotly.newPlot('bar', data, layout);
 }
 
 function buildBubble(otu_ids, sample_values, otu_labels) {
@@ -76,18 +95,37 @@ function buildBubble(otu_ids, sample_values, otu_labels) {
     var dataB = [{
         x: otu_ids[0],
         y: sample_values[0],
+        hovertemplate: "<b>OTU ID</b>: %{x}<br>" +
+                        "<b>Sample Value</b>: %{y}<br>" +
+                        "<b>OTU Label</b>: %{text}<br>" +
+                        "<extra></extra>",
         text: otu_labels[0],
         mode: 'markers',
         marker: {
             color: otu_ids[0],
+            colorscale: 'Jet',
             size: sample_values[0]
         }
     }];
     var layoutB = {
-        title: 'OTU ID',
+        title: "All OTU Samples",
         showlegend: false,
+        hovermode: "closest",
+        paper_bgcolor: 'rgba(245,246,249,1)',
+        plot_bgcolor: 'rgba(245,246,249,1)',
+        hoverlabel: { bgcolor: "#FFF" },
         height: 600,
-        width: 1200
+        width: 1200,
+        xaxis: {
+            title: "OTU ID",
+            size: 14,
+            color: 'grey'
+        },
+        yaxis: {
+            title: "SAMPLE VALUE",
+            size: 14,
+            color: 'grey'
+        }
     };
     Plotly.newPlot('bubble', dataB, layoutB)
 }
@@ -182,7 +220,7 @@ function buildGauge(metadata) {
               width: 7
             }
           }],
-        title: 'Belly Button Washing Frequency\nScrubs per Week',
+        title: 'Scrubs per Week',
         xaxis: {visible: false, range: [-1, 1]},
         yaxis: {visible: false, range: [-1, 1]}
       };
