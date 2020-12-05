@@ -7,6 +7,19 @@ d3.json("samples.json").then((importedData) => {
     for (var i = 0; i < data.names.length; i++) {
         ddownMenu.append("option").text(data.names[i]);
     }
+    // call our build'Chart' functions with a given variable when loading dashboard
+    var s_values = [];
+    var o_ids = [];
+    var o_labels = [];
+    var mdata = [];
+    s_values.push(data.samples[0]['sample_values']);
+    o_ids.push(data.samples[0]['otu_ids']);
+    o_labels.push(data.samples[0]['otu_labels']);
+    mdata.push(data.metadata[0]);
+    buildHbar(s_values, o_ids, o_labels);
+    buildBubble(o_ids, s_values, o_labels);
+    buildPanel(mdata);
+    buildGauge(mdata);
 });
 
 // on change to the DOM, call optionChanged()
@@ -114,8 +127,6 @@ function buildBubble(otu_ids, sample_values, otu_labels) {
         paper_bgcolor: 'rgba(245,246,249,1)',
         plot_bgcolor: 'rgba(245,246,249,1)',
         hoverlabel: { bgcolor: "#FFF" },
-        height: 600,
-        width: 1200,
         xaxis: {
             title: "OTU ID",
             size: 14,
