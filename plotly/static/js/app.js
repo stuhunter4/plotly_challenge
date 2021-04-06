@@ -99,8 +99,9 @@ function buildHbar(sample_values, otu_ids, otu_labels) {
             size: 14,
             color: 'grey'
         }
-    }
-    Plotly.newPlot('bar', data, layout);
+    };
+    var config = {responsive: true, displayModeBar: false};
+    Plotly.newPlot('bar', data, layout, config);
 }
 
 function buildBubble(otu_ids, sample_values, otu_labels) {
@@ -138,7 +139,8 @@ function buildBubble(otu_ids, sample_values, otu_labels) {
             color: 'grey'
         }
     };
-    Plotly.newPlot('bubble', dataB, layoutB)
+    var config = {responsive: true, displayModeBar: false};
+    Plotly.newPlot('bubble', dataB, layoutB, config)
 }
 
 function buildPanel(metadata) {
